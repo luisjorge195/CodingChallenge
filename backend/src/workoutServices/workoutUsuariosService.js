@@ -31,7 +31,7 @@ const loginUsuarios = async(data, res)=>{
         res.status(201).json({
             nombre: credenciales.rows[0].nombre,
             correo: credenciales.rows[0].email,
-            token: jwtUsuario(credenciales.rows[0].email)
+            token: jwtUsuario(credenciales.rows[0].id_usuario)
         })
 
        
@@ -40,16 +40,5 @@ const loginUsuarios = async(data, res)=>{
     }
 }  
  
-const insertarFavoritos = async(req,res) =>{
-    try {
-        const listadoObras = await pool.query('select * from artistas');
-        res.status(201).json(listadoObras.rows[0]);
-    } catch (error) {
-        console.log(error); 
-    }
-   
-   
-}
 
-
-export { loginUsuarios, insertarFavoritos, registrarUsuarios };
+export { loginUsuarios, registrarUsuarios };

@@ -1,8 +1,9 @@
 import React from 'react'
 
+
 const Alertas = ({alerta}) => {
   return (
-    <div className={`${alerta.error} ? 'bg-red-700 p-3 text-white text-2xl text-center bg-red-800' : 'bg-green-100 text-white'`}>
+    <div className={`${alerta.error} ? ' p-3 text-white text-2xl text-center' : 'bg-blue-600  mt-4' `}>
         {alerta.msg}
     </div>
   )
