@@ -1,7 +1,7 @@
 import Alertas from "../components/Alertas.jsx";
 import useAlerta from "../customHooks/useAlerta";
 import useAuth from "../customHooks/useAuth";
-import {toast} from 'react-toastify';
+
 const Login = () => {
 
     const { email, password, setEmail, setPassword, handleSubmit} = useAuth();
@@ -40,7 +40,7 @@ const Login = () => {
                 
                 </form>
             </div>
-        
+         
         </div>
     )
 }

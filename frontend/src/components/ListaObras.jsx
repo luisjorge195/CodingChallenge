@@ -1,17 +1,21 @@
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAlerta from "../customHooks/useAlerta.jsx"
 import useAuth from "../customHooks/useAuth"
 import useFavoritos from "../customHooks/useFavoritos"
 import useListaObras from '../customHooks/useListaObras'
+import '../App.css'
+
+
+
 import Alertas from "./Alertas.jsx"
 
 const Header = () => {
 
     const [activo, setActivo] = useState(false)
-
+    const [autor, setAutor] = useState('')
     const {alerta, setAlerta}= useAlerta()
     const {resultados, setObra, obra} = useListaObras();
 
@@ -25,7 +29,7 @@ const Header = () => {
         setActivo(!activo)
         navigate('/perfil')
     }
-
+    console.log('este es el autor seleccionado', autor)
     const cerrarSesion = ()=>{
         localStorage.removeItem('token')
         navigate('/')
@@ -36,8 +40,9 @@ const Header = () => {
     },9000)
 
     const coleccionObras = (Object.values(resultados).filter((item)=>(((item.title).startsWith(obra)) && (item.hasImage))))
-    
-    const {msg}= alerta
+    const coleccionTitulos = (Object.values(resultados).filter((item)=>(((item.principalOrFirstMaker).startsWith(autor)) && (item.hasImage))))
+        
+    const {msg} = alerta;
     
     return (
         <div >
@@ -70,9 +75,24 @@ const Header = () => {
                         value={obra}
                         onChange={e =>setObra(e.target.value)}
                     />
-                    
                 </div>
             </form>
+            <form className="bg-slate-300 w-full h-20 flex justify-center items-center">
+                <div className="relative w-2/3 ">
+                    <input className="form-control inp" onChange={e=>setAutor(e.target.value)} list="datalistOptions" id="exampleDataList" placeholder="Buscar por autor"/>
+                    <datalist id="datalistOptions" >
+                        {(coleccionObras.map((item, index)=>(
+                            <option key={index} >{item.principalOrFirstMaker}</option>
+                        ))
+                        )
+                        
+                        }
+                       
+                    </datalist>
+                </div>
+            </form>
+           
+            
                 <div className={highScroll>=300 && "fixed top-0 left-0 right-0 z-1 "}>
                     <h1 className="text-3xl text-slate-800 bg-white p-4 text-center">Explora nuestra colección de Arte</h1>
                     <div className="flex justify-center">
@@ -81,10 +101,11 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
+              
             <div className="grid lg:grid-cols-4 ml-14 my-14 gap-10 mr-14 md:grid-cols-3 xs:grid-cols-2 ">
                 
                 {
-                    coleccionObras.map((item,index) => (
+                    ((autor.includes(' ')) ? coleccionObras : coleccionTitulos).map((item,index) => (
                     (!item.hasImage) ?( <h1>No hay resultados</h1>) : (
                     
                     <div className="" key={index}>
