@@ -1,12 +1,13 @@
 import { createContext,useState, useEffect } from 'react';
 import clienteAxios from '../helpers/clienteAxios';
 import useAlerta from '../customHooks/useAlerta';
+import useRequest from '../customHooks/useRequest';
 
 const FavoritosContext = createContext();
 
 const FavoritosProvider = ({children}) => {
     const [highScroll, sethighScroll] = useState(0);
-
+    const {config} = useRequest();
     const handleScroll = () => {
         sethighScroll(window.scrollY)
     }
@@ -25,12 +26,6 @@ const FavoritosProvider = ({children}) => {
 
         const obrasFavoritos = { titulo_obra, nombre_artista, url_image_obra }
         try {
-            const config = {
-                headers:{
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                } 
-            }
             const {data} = await clienteAxios.post('/obras', obrasFavoritos, config)
             setAlerta({
                 error: false,

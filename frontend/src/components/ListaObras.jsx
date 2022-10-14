@@ -29,9 +29,8 @@ const Header = () => {
         setActivo(!activo)
         navigate('/perfil')
     }
-    console.log('este es el autor seleccionado', autor)
+    
     const cerrarSesion = ()=>{
-        localStorage.removeItem('token')
         navigate('/')
     }
 
@@ -46,7 +45,7 @@ const Header = () => {
     
     return (
         <div >
-            <div className="bg-slate-900 w-full h-24 flex justify-between items-center">
+            <div className="bg-slate-900 md:w-full md:h-24 md:flex md:justify-between md:items-center ">
                 <div>
                     <h1 className="text-white font-bold text-2xl ml-10 block">BIENVENIDO A MUSEO RIJKSMUSEUM</h1>
                     <h3 className="text-white ml-10 font-bold">Ámsterdam,Países bajos</h3>
@@ -110,7 +109,7 @@ const Header = () => {
                     
                     <div className="" key={index}>
                         <img
-                            className="w-full h-56 mt-4 xs:p-10 "
+                            className="md:w-full md:h-56 md:mt-4 xs:p-10 "
                             key={index}
                             src={item?.webImage.url}
                             alt='prueba'

@@ -16,7 +16,7 @@ const ListaFavoritos = ({item}) => {
         
         <div>
             <img
-                className="w-full h-56 mt-4 xs:p-10 "
+                className="w-full md:h-56 md:mt-4 md:p-10 "
                 key={item.id_obra}
                 src={item.url_image_obra}
                 alt={item.titulo_obra}          

@@ -1,24 +1,17 @@
 import {useEffect, useState} from 'react'
 import useAuth from '../customHooks/useAuth.jsx';
 import clienteAxios from '../helpers/clienteAxios.js';
-import useAlerta from '../customHooks/useAlerta' 
+import useRequest from '../customHooks/useRequest'
 
 const useListaFavoritos = () => {
 
     const [listaFavoritos, setListaFavoritos] = useState([]);
     const { token } = useAuth();
-    
+    const {config } = useRequest();
     const eliminarFavorito = async(e,_id, token, setAlerta)=>{
 
         e.preventDefault()
         try {
-            const config = {
-                headers:{
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                } 
-            }
-    
            const {data} =  await clienteAxios.delete(`/favoritos/${_id}`, config);
            setAlerta({
             error:false,
