@@ -23,7 +23,7 @@ const Perfil = () => {
     setTimeout(()=>{
         setAlerta('')
     },9000)
-
+    
     return (
         <div>
             <div className="bg-slate-900 md:h-32">

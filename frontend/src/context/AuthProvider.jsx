@@ -14,6 +14,7 @@ const AuthProvider = ({children})=>{
 
     const navigate = useNavigate()
 
+    ///Funcion de logueo usuario
     const handleSubmit = async(e, setAlerta)=>{
         e.preventDefault();
        
@@ -39,7 +40,9 @@ const AuthProvider = ({children})=>{
       
         
     }
-    
+
+
+   
     return(
         <AuthContext.Provider
             value={{

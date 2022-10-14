@@ -32,13 +32,16 @@ const insertarFavoritos = async(req,res) =>{
 }
 
 const listarFavoritos = async(req,res)=>{
-    const listaFavoritos = await pool.query('select id_obra, titulo_obra, url_image_obra, a.nombre_artista from obras as o join usuarios u on o.id_usuario=u.id_usuario join artistas as a on o.id_artista=a.id_artista')
+    const _idUsuario = (req.usuario.rows[0].id_usuario)
+    // const listaFavoritos = await pool.query(`select id_obra, titulo_obra, url_image_obra, a.nombre_artista from obras as o join usuarios u on o.id_usuario=u.id_usuario join artistas as a on o.id_artista=a.id_artista`)
+    const listaFavoritos = await pool.query('select id_obra, titulo_obra, url_image_obra, a.nombre_artista from obras as o  join (select id_usuario from usuarios where id_usuario = $1) as u on o.id_usuario = u.id_usuario join artistas as a on o.id_artista = a.id_artista',[_idUsuario])
     if(listarFavoritos.rowCount === 0) return res.status(404).json({msg:'Tu lista de favoritos está vacia'})
     res.status(201).json(listaFavoritos.rows)
 }
 
-const eliminarListaFavoritos = async (id_obra,res)=>{
-    await pool.query('delete from obras where id_obra=$1',[id_obra]);
+const eliminarListaFavoritos = async (id_obra,res,req)=>{
+    const _idUsuario = (req.usuario.rows[0].id_usuario)
+    await pool.query('delete from obras where id_obra=$1 and id_usuario =$2',[id_obra, _idUsuario]);
     res.status(201).json({ msg: 'Se eliminó de tu listado'})
 }
 

@@ -20,7 +20,7 @@ const favoritos =  (req,res)=>{
 
 const eliminarFavoritos = (validatorHandler(parametroEliminarFavoritos, 'params'), (req,res)=>{
     const {id_obra} = req.params;
-    eliminarListaFavoritos(id_obra, res);
+    eliminarListaFavoritos(id_obra, res, req);
 
 })
 
