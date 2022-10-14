@@ -1,7 +1,6 @@
-import React from 'react'
-import clienteAxios from '../helpers/clienteAxios'
+
+import useAlerta from '../customHooks/useAlerta.jsx';
 import useAuth from '../customHooks/useAuth.jsx';
-import useAlerta from '../customHooks/useAlerta.jsx'
 import useListaFavoritos from '../customHooks/useListaFavoritos.jsx';
 
 const ListaFavoritos = ({item}) => {
@@ -10,10 +9,7 @@ const ListaFavoritos = ({item}) => {
     const {setAlerta} = useAlerta();
     const {eliminarFavorito} = useListaFavoritos();
     
-    
-    
     return (
-        
         <div>
             <img
                 className="w-full md:h-56 md:mt-4 md:p-10 "
@@ -30,7 +26,6 @@ const ListaFavoritos = ({item}) => {
                 onClick={(e) => eliminarFavorito(e, item.id_obra, token, setAlerta)}
                 value="Quitar de mi lista"
             />
-            
         </div>
     )
 }

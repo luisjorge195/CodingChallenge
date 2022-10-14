@@ -6,11 +6,15 @@ import useRequest from '../customHooks/useRequest';
 const FavoritosContext = createContext();
 
 const FavoritosProvider = ({children}) => {
+
     const [highScroll, sethighScroll] = useState(0);
+
     const {config} = useRequest();
+
     const handleScroll = () => {
         sethighScroll(window.scrollY)
     }
+
     useEffect(()=>{
         window.addEventListener("scroll",handleScroll )
     },["scroll"])
@@ -40,6 +44,7 @@ const FavoritosProvider = ({children}) => {
         }
        
     }
+    
     return(
         <FavoritosContext.Provider
             value= {{

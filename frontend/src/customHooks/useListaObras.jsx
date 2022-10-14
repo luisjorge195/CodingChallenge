@@ -6,12 +6,13 @@ const useListaObras = () => {
     const [resultados, setResultados] = useState([]);
     const [obra, setObra] = useState('');
     const [autor, setAutor] = useState('');
-    
+    const [palabra, setPalabra] = useState('');
+
     const {token} = useAuth();
    
     
     useEffect(()=>{
-        const url = `${import.meta.env.VITE_URL_API}/api/en/collection?key=${import.meta.env.VITE_URL_API_KEY}&ps=20&involvedMaker&title&q=${obra}`
+        const url = `${import.meta.env.VITE_URL_API}/api/en/collection?key=${import.meta.env.VITE_URL_API_KEY}&ps=35&involvedMaker&title&q=${obra}`
         let isApiSubscribed = true;
         const obtenerTitulos = async()=>{ 
             if (isApiSubscribed) {
@@ -28,7 +29,7 @@ const useListaObras = () => {
     },[obra])
 
     useEffect(()=>{
-        const url = `${import.meta.env.VITE_URL_API}/api/en/collection?key=${import.meta.env.VITE_URL_API_KEY}&ps=20&involvedMaker&title&q=${autor}`
+        const url = `${import.meta.env.VITE_URL_API}/api/en/collection?key=${import.meta.env.VITE_URL_API_KEY}&ps=35&involvedMaker&title&q=${autor}`
         let isApiSubscribed = true;
         const obtenerAutores = async()=>{ 
             if (isApiSubscribed) {

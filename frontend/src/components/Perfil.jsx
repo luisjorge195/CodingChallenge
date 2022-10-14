@@ -1,11 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
+import useAlerta from '../customHooks/useAlerta';
 import useAuth from '../customHooks/useAuth';
 import useListaFavoritos from '../customHooks/useListaFavoritos.jsx';
+import Alertas from './Alertas.jsx';
 import ListaFavoritos from './ListaFavoritos.jsx';
-import Alertas from './Alertas.jsx'
-import useAlerta from '../customHooks/useAlerta';
-import {useNavigate} from 'react-router-dom'
 
 const Perfil = () => {
     const navigate = useNavigate();
@@ -43,7 +43,6 @@ const Perfil = () => {
                             type="submit"
                             value="Volver a galeria"
                             onClick = {regresar}
-                            
                         /> 
                         <FontAwesomeIcon onClick = {cerrarSesion}className="text-white text-3xl mt-4 cursor-pointer mr-14" icon={faArrowRightFromBracket} />
                     </div>

@@ -1,15 +1,12 @@
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import '../App.css'
 import useAlerta from "../customHooks/useAlerta.jsx"
 import useAuth from "../customHooks/useAuth"
 import useFavoritos from "../customHooks/useFavoritos"
 import useListaObras from '../customHooks/useListaObras'
-import '../App.css'
-
-
-
 import Alertas from "./Alertas.jsx"
 
 const Header = () => {
@@ -38,8 +35,8 @@ const Header = () => {
         setAlerta('')
     },9000)
 
-    const coleccionObras = (Object.values(resultados).filter((item)=>(((item.title).startsWith(obra)) && (item.hasImage))))
-    const coleccionTitulos = (Object.values(resultados).filter((item)=>(((item.principalOrFirstMaker).startsWith(autor)) && (item.hasImage))))
+    const coleccionObras = (Object.values(resultados).filter((item)=>((((item.title).toLowerCase()).startsWith(obra.toLocaleLowerCase())) && (item.hasImage))))
+    const coleccionTitulos = (Object.values(resultados).filter((item)=>((((item.principalOrFirstMaker).toLowerCase()).startsWith(autor.toLowerCase())) && (item.hasImage))))
         
     const {msg} = alerta;
     
@@ -80,60 +77,59 @@ const Header = () => {
                 <div className="relative w-2/3 ">
                     <input className="form-control inp" onChange={e=>setAutor(e.target.value)} list="datalistOptions" id="exampleDataList" placeholder="Buscar por autor"/>
                     <datalist id="datalistOptions" >
-                        {(coleccionObras.map((item, index)=>(
-                            <option key={index} >{item.principalOrFirstMaker}</option>
-                        ))
-                        )
-                        
+                        {
+                            (
+                                coleccionObras.map((item, index)=>(
+                                    <option key={index} >{item.principalOrFirstMaker}</option>
+                                ))
+                            )
                         }
                        
                     </datalist>
                 </div>
             </form>
-           
-            
-                <div className={highScroll>=300 && "fixed top-0 left-0 right-0 z-1 "}>
-                    <h1 className="text-3xl text-slate-800 bg-white p-4 text-center">Explora nuestra colección de Arte</h1>
-                    <div className="flex justify-center">
-                        <div className={alerta.error ? "bg-red-800 text-center  md:w-1/2 sm:w-70" : " md:w-1/2 sm:w-70 bg-blue-800 text-center"}>
-                            { msg && <Alertas  alerta={alerta}/>} 
-                        </div>
+            <div className={highScroll>=300 && "fixed top-0 left-0 right-0 z-1 "}>
+                <h1 className="text-3xl text-slate-800 bg-white p-4 text-center">Explora nuestra colección de Arte</h1>
+                <div className="flex justify-center">
+                    <div className={alerta.error ? "bg-red-800 text-center  md:w-1/2 sm:w-70" : " md:w-1/2 sm:w-70 bg-blue-800 text-center"}>
+                        { msg && <Alertas  alerta={alerta}/>} 
                     </div>
                 </div>
-              
+            </div>
             <div className="grid lg:grid-cols-4 ml-14 my-14 gap-10 mr-14 md:grid-cols-3 xs:grid-cols-2 ">
-                
                 {
                     ((autor.includes(' ')) ? coleccionObras : coleccionTitulos).map((item,index) => (
-                    (!item.hasImage) ?( <h1>No hay resultados</h1>) : (
-                    
-                    <div className="" key={index}>
-                        <img
-                            className="md:w-full md:h-56 md:mt-4 xs:p-10 "
-                            key={index}
-                            src={item?.webImage.url}
-                            alt='prueba'
+                        (!item.hasImage) ?( <h1>No hay resultados</h1>) : (
                             
-                        />
-                            
-                        <h1 className="text-2xl text-center">{item?.title}</h1>
-                        <h1 className="mt-2 text-center">{item?.principalOrFirstMaker}</h1>
-                        <nav className="text-center text-red-700">
-                            <a className=" hover:border-b-2 border-b-red-900" target="_blank" href={item?.links?.web}>Ver obra</a>
-                        </nav>
-                        
-                        <input
-                            type="submit"
-                            onClick={(e)=>favoritos(e,item,token)}
-                            value="Agregar a favoritos"
-                            className="w-full text-white cursor-pointer p-2 bg-slate-800 hover:bg-slate-900 mt-2 rounded-lg focus:outline-none"
-                        />
-                    </div>
-                    )))
+                            <div className="" key={index}>
+                                <img
+                                    className="md:w-full md:h-56 md:mt-4 xs:p-10 "
+                                    key={index}
+                                    src={item?.webImage.url}
+                                    alt={item?.principalOrFirstMaker}
+                                    
+                                />
+                                    
+                                <h1 className="text-2xl text-center">{item?.title}</h1>
+                                <h1 className="mt-2 text-center">{item?.principalOrFirstMaker}</h1>
+                                <nav className="text-center text-red-700">
+                                    <a className=" hover:border-b-2 border-b-red-900" target="_blank" href={item?.links?.web}>Ver obra</a>
+                                </nav>
+                                
+                                <input
+                                    type="submit"
+                                    onClick={(e)=>favoritos(e,item,token)}
+                                    value="Agregar a favoritos"
+                                    className="w-full text-white cursor-pointer p-2 bg-slate-800 hover:bg-slate-900 mt-2 rounded-lg focus:outline-none"
+                                />
+                            </div>
+                            )
+                        )
+                    )
                 }
             </div>
         </div>
-  )
+    )
 }
 
 export default Header

@@ -1,7 +1,6 @@
-import { createContext , useState, useMemo } from 'react'
+import { createContext , useState } from 'react'
 import { useNavigate} from 'react-router-dom'
 import clienteAxios from '../helpers/clienteAxios.js'
-import CryptoJs from 'crypto-js'
 
 const AuthContext = createContext();
 
@@ -12,6 +11,7 @@ const AuthProvider = ({children})=>{
     const [ password, setPassword ] =  useState('');
     const [ nombre, setNombre ] =  useState('');
     const [ token, setToken] = useState('');
+
     const navigate = useNavigate()
 
     const handleSubmit = async(e, setAlerta)=>{
@@ -39,9 +39,7 @@ const AuthProvider = ({children})=>{
       
         
     }
-
     
-    token!=='' && localStorage.setItem('token', token);
     return(
         <AuthContext.Provider
             value={{
