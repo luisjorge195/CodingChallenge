@@ -11,7 +11,7 @@ const insertarFavoritos = async(req,res) =>{
     try {
         //toda la data ya esta registrada en la api por lo tanto no se hace validacion de campos vacios
         const validarNombreArtista = await pool.query('select count(*) from artistas where nombre_artista = $1',[nombre_artista]);
-        const validarNombreObra = await pool.query('select count(*) from obras where titulo_obra = $1',[titulo_obra]);
+        const validarNombreObra = await pool.query('select count(*) from obras where url_image_obra = $1',[url_image_obra]);
 
         if((validarNombreObra.rows[0].count) > 0) return res.status(500).json({ msg: 'Ya está en tu lista de favoritos'});
 

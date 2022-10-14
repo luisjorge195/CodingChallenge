@@ -9,23 +9,24 @@ const Login = () => {
     const { msg }= alerta
 
     return (
-        <div className="flex h-screen bg-[url('./src/assets/galery.jpg')] bg-cover ">
-            <div className="m-auto bg-black opacity-80 brigthnes-60 p-10">
-                <h1 className="text-4xl text-center text-white font-bold capitalize">Bienvenido a Rijkmuseum</h1>
+        <div className="flex h-screen md:bg-[url('./src/assets/galery.jpg')] md:bg-cover  ">
+            <div className="m-auto md:bg-black opacity-80 brigthnes-60 md:p-10  rounded-xl  border-black md:border-0  sm:bg-white sm:p-5 p-4">
+                
+                <h1 className="text-4xl text-center md:text-white font-bold capitalize text-black">Bienvenido a Rijkmuseum</h1>
                 <form className="mt-10" onSubmit={(e)=>handleSubmit(e, setAlerta)}>
                     <div className="">
-                        <label className=" uppercase text-white block text-xl font-bold">Correo</label>
+                        <label className=" uppercase md:text-white block md:text-xl font-bold text-black">Correo</label>
                         <input 
-                            className="w-full  border mt-3 p-2 rounded-xl bg-white" 
+                            className="w-full border-black border-2 md:border-0  mt-3 p-2 rounded-xl bg-white" 
                             type="email"
                             value={email}
                             onChange={e=>setEmail(e.target.value)}
                         />
                     </div>
                     <div className="my-5">
-                        <label className="uppercase text-white block text-xl font-bold">Contraseña</label>
+                        <label className="uppercase md:text-white block md:text-xl text-black font-bold">Contraseña</label>
                         <input 
-                            className="w-full border bg-white font-bold mt-3 p-2 rounded-xl " 
+                            className="w-full border-black border-2 md:border-0 bg-white font-bold mt-3 p-2 rounded-xl " 
                             type="password" 
                             value={password}
                             onChange={e => setPassword(e.target.value)} 
