@@ -6,19 +6,22 @@ const useListaObras = () => {
     const [resultados, setResultados] = useState([]);
     const [obra, setObra] = useState('');
     const [autor, setAutor] = useState('');
-    const [palabra, setPalabra] = useState('');
+    const [loader, setLoader] = useState(false);
 
     const {token} = useAuth();
    
     
     useEffect(()=>{
+        setLoader(true)
         const url = `${import.meta.env.VITE_URL_API}/api/en/collection?key=${import.meta.env.VITE_URL_API_KEY}&ps=35&involvedMaker&title&q=${obra}`
         let isApiSubscribed = true;
         const obtenerTitulos = async()=>{ 
+            
             if (isApiSubscribed) {
                 const {data} = await clienteAxios(url, { headers: {"Content-Type": "application/json", Authorization: `Bearer ${token}` }});
                 setResultados(data.artObjects);
             }
+            setLoader(false)
         }
       
         obtenerTitulos();
@@ -29,6 +32,7 @@ const useListaObras = () => {
     },[obra])
 
     useEffect(()=>{
+        setLoader(true)
         const url = `${import.meta.env.VITE_URL_API}/api/en/collection?key=${import.meta.env.VITE_URL_API_KEY}&ps=35&involvedMaker&title&q=${autor}`
         let isApiSubscribed = true;
         const obtenerAutores = async()=>{ 
@@ -36,6 +40,7 @@ const useListaObras = () => {
                 const {data} = await clienteAxios(url, { headers: {"Content-Type": "application/json", Authorization: `Bearer ${token}` }});
                 setResultados(data.artObjects);
             }
+            setLoader(false)
         }
       
         obtenerAutores();
@@ -44,7 +49,7 @@ const useListaObras = () => {
             isApiSubscribed=false
         }
     },[autor])
-    return {resultados, setObra, obra, setAutor, autor}
+    return {resultados, setObra, obra, setAutor, autor, loader}
 }
 
 export default useListaObras

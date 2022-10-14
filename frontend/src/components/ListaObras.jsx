@@ -11,10 +11,13 @@ import Alertas from "./Alertas.jsx"
 
 const Header = () => {
 
-    const [activo, setActivo] = useState(false)
-    const [autor, setAutor] = useState('')
-    const {alerta, setAlerta}= useAlerta()
-    const {resultados, setObra, obra} = useListaObras();
+    const [activo, setActivo] = useState(false);
+    const [autor, setAutor] = useState('');
+    
+
+    const {alerta, setAlerta}= useAlerta();
+
+    const {resultados, setObra, obra, loader} = useListaObras();
 
     const {nombre, token} = useAuth()
     const {favoritos, highScroll} = useFavoritos();
@@ -96,6 +99,7 @@ const Header = () => {
                     </div>
                 </div>
             </div>
+            {loader ? (<div className="spinner"></div>) : (
             <div className="grid lg:grid-cols-4 ml-14 my-14 gap-10 mr-14 md:grid-cols-3 xs:grid-cols-2 ">
                 {
                     ((autor.includes(' ')) ? coleccionObras : coleccionTitulos).map((item,index) => (
@@ -126,8 +130,10 @@ const Header = () => {
                             )
                         )
                     )
+                   
                 }
             </div>
+            )}
         </div>
     )
 }
